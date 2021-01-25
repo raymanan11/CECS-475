@@ -6,4 +6,7 @@
     <RootNamespace>Lab_1</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CalculatorLibrary\CalculatorLibrary.csproj" />
+  </ItemGroup>
 </Project>
