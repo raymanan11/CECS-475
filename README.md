@@ -1,2 +1,3 @@
 # CECS-475
-Spring 2021
+Software Development with Frameworks
+CSULB Spring 2021
