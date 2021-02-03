@@ -3,6 +3,7 @@
 namespace Lab_3 {
     class Program {
         static void Main(string[] args) {
+            System.IO.File.WriteAllText(@"/Users/raymanan11/CECS475Lab3/Lab3_output.txt", string.Empty);
             Stock stock1 = new Stock("Technology", 160, 5, 10);
             Stock stock2 = new Stock("Retail", 30, 2, 6);
             Stock stock3 = new Stock("Banking", 90, 4, 10);
