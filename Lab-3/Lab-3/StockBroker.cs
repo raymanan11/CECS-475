@@ -9,7 +9,7 @@ namespace Lab_3 {
         public string BrokerName { get; set; }
         public List<Stock> stocks = new List<Stock>();
         public static ReaderWriterLockSlim myLock = new ReaderWriterLockSlim();
-        readonly string docPath = @"C:\Users\raymanan11\CECS475Lab3\Lab3_output.txt";
+        readonly string docPath = @"/Users/raymanan11/CECS475Lab3/Lab3_output.txt";
         public string titles = "Broker".PadRight(10) + "Stock".PadRight(15) +
        "Value".PadRight(10) + "Changes".PadRight(10) + "Date and Time";
         /// <summary>
@@ -34,12 +34,17 @@ namespace Lab_3 {
         /// <param name="e">Event arguments</param>
         void EventHandler(Object sender, EventArgs e) {
             try {
+                myLock.EnterWriteLock();
                 Stock newStock = (Stock)sender;
                 Console.WriteLine(BrokerName + " " + ((StockNotification) e).ToString());
+                DateTime currentDate = DateTime.Now;
+                string stockInfo = currentDate + "  " + newStock.StockName + "  Initial Value: " + newStock.InitialValue + "  Current Value: " + newStock.CurrentValue;
+                using (StreamWriter file = new StreamWriter(docPath, true)) {
+                    file.WriteLine(stockInfo);
+                }
+                myLock.ExitWriteLock();
             }
-            catch {
-
-            }
+            catch {}
         }
     }
 }
