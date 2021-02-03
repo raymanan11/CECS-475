@@ -21,7 +21,13 @@ namespace Lab_3 {
         /// <param name="maxChange">The max value change of the stock</param>
         /// <param name="threshold">The range for the stock</param>
         public Stock(string name, int startingValue, int maxChange, int threshold) {
-
+            StockName = name;
+            InitialValue = startingValue;
+            CurrentValue = startingValue;
+            MaxChange = maxChange;
+            Threshold = threshold;
+            _thread = new Thread(() => Activate());
+            _thread.Start();
         }
         /// <summary>
         /// Activates the threads synchronizations
@@ -29,7 +35,7 @@ namespace Lab_3 {
         public void Activate() {
             for (int i = 0; i < 25; i++) {
                 Thread.Sleep(500); // 1/2 second
-                // Call the function ChangeStockValue
+                ChangeStockValue();
             }
         }
         /// <summary>
@@ -39,9 +45,11 @@ namespace Lab_3 {
             var rand = new Random();
             CurrentValue += rand.Next((-1 * MaxChange), MaxChange);
             NumChanges++;
-            if ((CurrentValue - InitialValue) > Threshold) {
-                StockEvent?.Invoke;
+            if (Math.Abs((CurrentValue - InitialValue)) > Threshold) {
+                StockEvent?.Invoke(this, new StockNotification(StockName, CurrentValue, NumChanges));
+                // call event to write to file
             }
         }
+
     }
 }
