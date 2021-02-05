@@ -36,9 +36,9 @@ namespace Lab_3 {
             try {
                 myLock.EnterWriteLock();
                 Stock newStock = (Stock)sender;
-                Console.WriteLine(BrokerName + " " + ((StockNotification) e).ToString());
                 DateTime currentDate = DateTime.Now;
-                string stockInfo = currentDate + "  " + newStock.StockName + "  Initial Value: " + newStock.InitialValue + "  Current Value: " + newStock.CurrentValue;
+                string stockInfo = currentDate + " " + BrokerName + " " + ((StockNotification)e).ToString();
+                Console.WriteLine(stockInfo);
                 using (StreamWriter file = new StreamWriter(docPath, true)) {
                     file.WriteLine(stockInfo);
                 }
