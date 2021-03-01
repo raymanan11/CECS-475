@@ -51,7 +51,7 @@ namespace Lab_2 {
             if (set.Length == 0 || set == null) return "---";
             string result = "{ ";
             for (int i = 0; i < set.Length; i++) {
-                if (set[i] == true) 
+                if (set[i] == true)
                     result += i + " ";
             }
             result += "}";

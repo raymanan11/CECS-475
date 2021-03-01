@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Lab_2 {
 
@@ -47,11 +48,11 @@ namespace Lab_2 {
             return temp;
         } // end method Intersection
 
-        public String ToString() {
+        public String toString() {
             if (set.Length == 0 || set == null) return "---";
             string result = "{ ";
             for (int i = 0; i < set.Length; i++) {
-                if (set[i] == true) 
+                if (set[i] == true)
                     result += i + " ";
             }
             result += "}";
@@ -77,14 +78,20 @@ namespace Lab_2 {
             }
         }
         static void Main(string[] args) {
+            MainAsync();
+        }
+
+        static async void MainAsync() {
             // initialize two sets
             Console.WriteLine("Input Set A");
             IntegerSet set1 = InputSet();
             Console.WriteLine("\nInput Set B");
             IntegerSet set2 = InputSet();
 
-            IntegerSet union = set1.Union(set2);
-            IntegerSet intersection = set1.Intersection(set2);
+            Task<IntegerSet> unionTask = Task.Run(() => set1.Union(set2));
+            Task<IntegerSet> intersectionTask = Task.Run(() => set1.Intersection(set2));
+
+            await Task.WhenAll(unionTask, intersectionTask);
 
             // prepare output
             Console.WriteLine("\nSet A contains elements:");
@@ -93,10 +100,10 @@ namespace Lab_2 {
             Console.WriteLine(set2.ToString());
             Console.WriteLine(
             "\nUnion of Set A and Set B contains elements:");
-            Console.WriteLine(union.ToString());
+            Console.WriteLine(unionTask.ToString());
             Console.WriteLine(
             "\nIntersection of Set A and Set B contains elements:");
-            Console.WriteLine(intersection.ToString());
+            Console.WriteLine(intersectionTask.ToString());
 
             // test whether two sets are equal
             if (set1.IsEqualTo(set2))
