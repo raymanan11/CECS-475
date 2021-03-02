@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lab_3 {
     public class Stock {
@@ -26,6 +27,8 @@ namespace Lab_3 {
             CurrentValue = startingValue;
             MaxChange = maxChange;
             Threshold = threshold;
+            //Activate();
+            //ActivateTask();
             _thread = new Thread(() => Activate());
             _thread.Start();
         }
@@ -35,6 +38,8 @@ namespace Lab_3 {
         public void Activate() {
             for (int i = 0; i < 25; i++) {
                 Thread.Sleep(500); // 1/2 second
+                //Task changeStock = Task.Run( () => ChangeStockValue());
+                //await changeStock;
                 ChangeStockValue();
             }
         }
@@ -47,9 +52,14 @@ namespace Lab_3 {
             NumChanges++;
             if (Math.Abs((CurrentValue - InitialValue)) > Threshold) {
                 StockEvent?.Invoke(this, new StockNotification(StockName, CurrentValue, NumChanges));
-                // call event to write to file
             }
         }
+
+        //public async void ActivateTask() {
+        //    Console.WriteLine("in async method");
+        //    Task changeStock = Task.Run(() => Activate());
+        //    await changeStock;
+        //}
 
     }
 }
