@@ -10,11 +10,11 @@ namespace MvcMovie.Controllers {
             return View();
         }
 
-        // 
-        // GET: /HelloWorld/Welcome/ 
+        public IActionResult Welcome(string name, int numTimes = 1) {
+            ViewData["Message"] = "Hello " + name;
+            ViewData["NumTimes"] = numTimes;
 
-        public string Welcome(string name, int ID = 1) {
-            return HtmlEncoder.Default.Encode($"Hello {name}, ID: {ID}");
+            return View();
         }
     }
 }
