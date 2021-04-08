@@ -16,7 +16,7 @@ namespace McvMovie {
                 var services = scope.ServiceProvider;
 
                 try {
-                    SeedData.Initialize(services);
+                    AnSeedData.Initialize(services);
                 }
                 catch (Exception ex) {
                     var logger = services.GetRequiredService<ILogger<Program>>();
