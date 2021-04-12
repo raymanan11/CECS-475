@@ -9,7 +9,7 @@ using TodoApi.Models;
 
 namespace TodoApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/TodoItems")]
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
@@ -74,13 +74,14 @@ namespace TodoApi.Controllers
 
         // POST: api/TodoItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/TodoItems
         [HttpPost]
-        public async Task<ActionResult<AnTodoItem>> PostAnTodoItem(AnTodoItem anTodoItem)
-        {
-            _context.TodoItems.Add(anTodoItem);
+        public async Task<ActionResult<AnTodoItem>> PostTodoItem(AnTodoItem todoItem) {
+            _context.TodoItems.Add(todoItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAnTodoItem", new { id = anTodoItem.Id }, anTodoItem);
+            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(GetAnTodoItem), new { id = todoItem.Id }, todoItem);
         }
 
         // DELETE: api/TodoItems/5
